@@ -56,9 +56,9 @@ github_repo = args.github_repo
 organisation = args.organisation
 organisation_space = args.space
 
-client = cf_cli_initialise(organisation=organisation, space=organisation_space)
 home_working_directory = os.getcwd()
 target_directory = '{}/{}'.format(home_working_directory, app_name)
+client = cf_cli_initialise(organisation=organisation, space=organisation_space)
 clone_github_repository(target_directory=target_directory, github_repo=github_repo)
 push_app(app_name=app_name, home_working_directory=home_working_directory, target_directory=target_directory)
 cleanup(home_working_directory=home_working_directory, target_directory=target_directory)

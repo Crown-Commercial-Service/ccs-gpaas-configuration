@@ -4,7 +4,7 @@ from cf_common import get_space_guid, cf_client_initialise
 
 
 def parse_arguments():
-    description = "Arguments for cf_common.py"
+    description = "Arguments for create_service.py"
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument("-instance-name",
                         help="The instance name to give to the service",
@@ -39,7 +39,7 @@ def check_service_plan_exists(client, service_plan):
         exit(1)
 
 
-def create_first_service(client, instance_name, service_plan_guid, space_guid, threshold=20):
+def create_service(client, instance_name, service_plan_guid, space_guid, threshold=20):
     try:
         client.v2.service_instances.create(space_guid=space_guid, instance_name=instance_name, plan_guid=service_plan_guid, accepts_incomplete=True)
         print("Service instance creation in progress for: {}".format(instance_name))
@@ -83,4 +83,4 @@ service_plan = args.service_plan
 client = cf_client_initialise()
 space_guid = get_space_guid(client=client, organisation=organisation, organisation_space=organisation_space)
 service_plan_guid = check_service_plan_exists(client=client, service_plan=service_plan)
-create_first_service(client=client, instance_name=instance_name, service_plan_guid=service_plan_guid, space_guid=space_guid)
+create_service(client=client, instance_name=instance_name, service_plan_guid=service_plan_guid, space_guid=space_guid)
