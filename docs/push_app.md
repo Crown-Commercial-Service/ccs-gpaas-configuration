@@ -1,5 +1,5 @@
 ### Push App
-This README outlines the intended behaviour of the [push_app.py](../push_app.py) script, how the script works, required arguments and pre-requisites.
+This README outlines the intended behaviour of the [push_app.py](../scripts/push_app.py) script, how the script works, required arguments and pre-requisites.
 
 #### Intended Behaviour
 The script is intended to allow a user to push an app into their desired organisation and space, using the application's source code and manifest in order
@@ -12,7 +12,7 @@ to push the desired configuration.
 - space: The name of the space to create resources for
 
 #### How the script works
-The script first authenticates against CloudFoundry by calling the *cf_cli_initialise* function from [cf_common.py](../cf_common.py), which will provide access
+The script first authenticates against CloudFoundry by calling the *cf_cli_initialise* function from [cf_common.py](../scripts/cf_common.py), which will provide access
 to the desired organisation and space where you wish to deploy the application to. This function takes the organisation and space arguments, whilst also accessing
 the username and password required via environment variables, and authenticates against the default target endpoint.
 

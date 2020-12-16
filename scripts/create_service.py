@@ -1,6 +1,6 @@
 import argparse
 import os
-from cf_common import get_space_guid, cf_client_initialise
+from scripts.cf_common import get_space_guid, cf_client_initialise
 
 
 def parse_arguments():

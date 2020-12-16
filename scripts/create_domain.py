@@ -1,6 +1,6 @@
 import argparse
 import subprocess
-from cf_common import run, cf_cli_initialise
+from scripts.cf_common import run, cf_cli_initialise
 
 
 def parse_arguments():

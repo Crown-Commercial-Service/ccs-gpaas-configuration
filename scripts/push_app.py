@@ -1,7 +1,7 @@
 import argparse
 import os
 import subprocess
-from cf_common import cf_cli_initialise, run
+from scripts.cf_common import cf_cli_initialise, run
 from git import Repo
 
 
