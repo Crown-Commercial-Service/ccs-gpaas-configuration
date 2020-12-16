@@ -24,6 +24,10 @@ def parse_arguments():
                         help="The name of the space to create resources for",
                         dest="space",
                         required=True)
+    parser.add_argument("-subdomain",
+                        help="The subdomain for the application (optional)",
+                        dest="subdomain",
+                        required=False)
     return parser.parse_args()
 
 
@@ -55,6 +59,7 @@ app_name = args.app_name
 github_repo = args.github_repo
 organisation = args.organisation
 organisation_space = args.space
+subdomain = args.subdomain
 
 home_working_directory = os.getcwd()
 target_directory = '{}/{}'.format(home_working_directory, app_name)
