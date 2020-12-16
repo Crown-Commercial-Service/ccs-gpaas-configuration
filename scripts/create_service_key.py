@@ -1,6 +1,6 @@
 import argparse
 import json
-from scripts.cf_common import get_space_guid, cf_client_initialise
+from cf_common import get_space_guid, cf_client_initialise
 
 
 def parse_arguments():
