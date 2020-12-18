@@ -72,3 +72,23 @@ def get_space_guid(client, organisation, organisation_space):
                 if organisation_space == space["entity"]["name"]:
                     space_guid = space["metadata"]["guid"]
                     return space_guid
+
+
+def get_guid_within_space(client_search, identifier, space_guid):
+    identifier_exists = False
+    for config in client_search:
+        if config["entity"]["space_guid"] == space_guid:
+            if config["entity"]["name"] == identifier:
+                identifier_exists = True
+                identifier_guid = config["metadata"]["guid"]
+
+    if identifier_exists:
+        return identifier_guid
+    else:
+        print(f"Failed to find the guid for {identifier}")
+        exit(1)
+
+
+def exception_handler_function(msg):
+    print(f"Encountered exception: {msg}")
+    exit(1)

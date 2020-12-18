@@ -1,5 +1,5 @@
 ### Create Service
-This README outlines the intended behaviour of the [create_service.py](../scripts/create_service.py) script, how the script works, required arguments and pre-requisites.
+This README outlines the intended behaviour of the [create_service.py](../scripts/handlers/create_service.py) script, how the script works, required arguments and pre-requisites.
 
 #### Intended Behaviour
 The script is intended to allow a user to provision a backing service within a given GPaaS Organisation/Space

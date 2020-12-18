@@ -1,43 +1,6 @@
-import argparse
 import os
 import json
 from cf_common import get_space_guid, cf_client_initialise
-
-
-def parse_arguments():
-    description = "Arguments for create_service.py"
-    parser = argparse.ArgumentParser(description=description)
-    parser.add_argument(
-        "-instance-name",
-        help="The instance name to give to the service",
-        dest="instance_name",
-        required=True,
-    )
-    parser.add_argument(
-        "-organisation",
-        help="The organisation to create resources within",
-        dest="organisation",
-        required=True,
-    )
-    parser.add_argument(
-        "-parameters",
-        help="The paramters to assign to the created service key",
-        dest="parameters",
-        required=False,
-    )
-    parser.add_argument(
-        "-service-plan",
-        help="The name of the service plan to create the service for",
-        dest="service_plan",
-        required=True,
-    )
-    parser.add_argument(
-        "-space",
-        help="The name of the space to create resources for",
-        dest="space",
-        required=True,
-    )
-    return parser.parse_args()
 
 
 def check_service_plan_exists(client, service_plan):
@@ -152,37 +115,33 @@ def check_service_status(
                 exit(1)
 
 
-# Set arguments
-args = parse_arguments()
-instance_name = args.instance_name
-organisation = args.organisation
-organisation_space = args.space
-parameters = args.parameters
-service_plan = args.service_plan
-
-# Call methods
-client = cf_client_initialise()
-space_guid = get_space_guid(
-    client=client, organisation=organisation, organisation_space=organisation_space
-)
-service_plan_guid = check_service_plan_exists(client=client, service_plan=service_plan)
-if parameters:
-    try:
-        service_parameters = json.loads(parameters)
-        create_service_with_parameters(
+def service_handler(
+    instance_name, organisation, organisation_space, parameters, service_plan
+):
+    client = cf_client_initialise()
+    space_guid = get_space_guid(
+        client=client, organisation=organisation, organisation_space=organisation_space
+    )
+    service_plan_guid = check_service_plan_exists(
+        client=client, service_plan=service_plan
+    )
+    if parameters:
+        try:
+            service_parameters = json.loads(parameters)
+            create_service_with_parameters(
+                client=client,
+                instance_name=instance_name,
+                parameters=service_parameters,
+                service_plan_guid=service_plan_guid,
+                space_guid=space_guid,
+            )
+        except json.decoder.JSONDecodeError as e:
+            print(f"Could not load service parameters {parameters}: {e}")
+            exit(1)
+    else:
+        create_service(
             client=client,
             instance_name=instance_name,
-            parameters=service_parameters,
             service_plan_guid=service_plan_guid,
             space_guid=space_guid,
         )
-    except json.decoder.JSONDecodeError as e:
-        print(f"Could not load service parameters {parameters}: {e}")
-        exit(1)
-else:
-    create_service(
-        client=client,
-        instance_name=instance_name,
-        service_plan_guid=service_plan_guid,
-        space_guid=space_guid,
-    )

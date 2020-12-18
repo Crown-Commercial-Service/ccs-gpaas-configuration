@@ -1,5 +1,5 @@
 ### Push App
-This README outlines the intended behaviour of the [push_app.py](../scripts/push_app.py) script, how the script works, required arguments and pre-requisites.
+This README outlines the intended behaviour of the [push_app.py](../scripts/app.py) script, how the script works, required arguments and pre-requisites.
 
 #### Intended Behaviour
 The script is intended to allow a user to push an app into their desired organisation and space, using the application's source code and manifest in order

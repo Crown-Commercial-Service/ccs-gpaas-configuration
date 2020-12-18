@@ -1,10 +1,17 @@
 import argparse
-import subprocess
-from cf_common import run, cf_cli_initialise
+import os
+import sys
+
+current_dir = os.getcwd()
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(f"{dir_path}/../")
+
+from cf_common import cf_cli_initialise
+from domain import create_domain
 
 
 def parse_arguments():
-    description = "Arguments for create_domain.py"
+    description = "Arguments for domain.py"
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument(
         "-domain-name",
@@ -27,15 +34,6 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def create_domain(domain, organisation):
-    try:
-        print(f"Creating domain {domain} for {organisation}")
-        run(["cf", "create-domain", organisation, domain])
-        print(f"Created domain: {domain}")
-    except subprocess.CalledProcessError as e:
-        print(f"Failed to create domain {domain}: {e}")
-
-
 # Set arguments
 args = parse_arguments()
 domain_name = args.domain
@@ -43,5 +41,5 @@ organisation = args.organisation
 organisation_space = args.space
 
 # Call methods
-client = cf_cli_initialise(organisation=organisation, space=organisation_space)
+cf_cli_initialise(organisation=organisation, space=organisation_space)
 create_domain(domain=domain_name, organisation=organisation)
