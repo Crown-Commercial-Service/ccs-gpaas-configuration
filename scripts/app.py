@@ -8,7 +8,7 @@ def clone_github_repository(target_directory, github_repo):
     try:
         Repo.clone_from(github_repo, target_directory)
     except Exception as e:
-        print("Failed to clone github repo {}: {}".format(github_repo, e))
+        exception_handler_function(msg=f"Failed to clone github repo {github_repo}: {e}")
 
 
 def push_app(

@@ -52,7 +52,7 @@ def cf_cli_initialise(
             ]
         )
     except subprocess.CalledProcessError as e:
-        print("Failed to login to {} {}: {}".format(organisation, space, e))
+        exception_handler_function(msg=f"Failed to login to {organisation} {space}: {e}")
 
 
 def cf_client_initialise():
@@ -85,8 +85,7 @@ def get_guid_within_space(client_search, identifier, space_guid):
     if identifier_exists:
         return identifier_guid
     else:
-        print(f"Failed to find the guid for {identifier}")
-        exit(1)
+        exception_handler_function(msg=f"Failed to find the guid for {identifier}")
 
 
 def exception_handler_function(msg):

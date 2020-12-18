@@ -1,4 +1,4 @@
-from cf_common import get_space_guid, cf_client_initialise
+from cf_common import get_space_guid, cf_client_initialise, exception_handler_function
 
 
 def check_service_instance_exists(client, service_instance, space_guid):
@@ -13,8 +13,7 @@ def check_service_instance_exists(client, service_instance, space_guid):
         print(f"Confirmed that service instance for {service_instance} exists")
         return service_guid
     else:
-        print(f"Could not find service instance for {service_instance}, exiting...")
-        exit(1)
+        exception_handler_function(msg=f"Could not find service instance for {service_instance}, exiting...")
 
 
 def create_service_key(client, service_guid, service_key_name, parameters):
@@ -26,7 +25,7 @@ def create_service_key(client, service_guid, service_key_name, parameters):
         )
         print(f"Service key {service_key_name} created successfully")
     except Exception as e:
-        print(f"Failed to create service key {service_key_name}: {e}")
+        exception_handler_function(msg=f"Failed to create service key {service_key_name}: {e}")
 
 
 def service_key_handler(

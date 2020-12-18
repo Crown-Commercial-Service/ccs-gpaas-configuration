@@ -85,12 +85,12 @@ def append_metric_parameters_to_policy(autoscaling_policy, dict, metric):
         for metric_values in dict[metric]:
             for single_key, single_value in metric_values.items():
                 if not single_value:
-                    raise exception_handler_function(
+                    exception_handler_function(
                         msg=f"Value {single_key} for {metric} cannot be {single_value}"
                     )
             autoscaling_policy["scaling_rules"].append(metric_values)
     except KeyError as e:
-        raise exception_handler_function(
+        exception_handler_function(
             msg=f"Key error when attempting to create config for {metric}: {e}"
         )
     print(f"Successfully added ASG values for {metric}")

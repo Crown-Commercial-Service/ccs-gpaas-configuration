@@ -1,4 +1,4 @@
-from cf_common import get_space_guid, cf_client_initialise, get_guid_within_space
+from cf_common import get_space_guid, cf_client_initialise, get_guid_within_space, exception_handler_function
 
 
 def create_service_binding(app, app_guid, client, instance_guid):
@@ -8,8 +8,7 @@ def create_service_binding(app, app_guid, client, instance_guid):
         )
         print(f"Service binding created for {app_guid}")
     except Exception as e:
-        print(f"Failed to create service binding for {app}: {e}")
-        exit(1)
+        exception_handler_function(msg=f"Failed to create service binding for {app}: {e}")
 
 
 def binding_handler(app, instance, organisation, organisation_space):

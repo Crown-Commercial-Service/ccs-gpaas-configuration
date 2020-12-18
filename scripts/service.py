@@ -1,6 +1,6 @@
 import os
 import json
-from cf_common import get_space_guid, cf_client_initialise
+from cf_common import get_space_guid, cf_client_initialise, exception_handler_function
 
 
 def check_service_plan_exists(client, service_plan):
@@ -13,8 +13,7 @@ def check_service_plan_exists(client, service_plan):
     if service_plan_exists:
         return service_plan_guid
     else:
-        print("Couldnt find service plan")
-        exit(1)
+        exception_handler_function(msg=f"Could not find service plan: {service_plan}")
 
 
 def create_service_with_parameters(
@@ -37,15 +36,9 @@ def create_service_with_parameters(
             if service_created:
                 break
             if i >= 40:
-                print("Timed out waiting for {} to reach state".format(instance_name))
-                exit(1)
+                exception_handler_function(msg=f"Timed out waiting for {instance_name} to reach desired state")
     except Exception as e:
-        print(
-            "Received exception when creating service instance: {}: {}".format(
-                instance_name, e
-            )
-        )
-        exit(1)
+        exception_handler_function(msg=f"Received exception when creating service instance: {instance_name}: {e}")
 
 
 def create_service(client, instance_name, service_plan_guid, space_guid, threshold=20):
@@ -65,14 +58,9 @@ def create_service(client, instance_name, service_plan_guid, space_guid, thresho
             if service_created:
                 break
             if i >= 20:
-                print("Timed out waiting for {} to reach state".format(instance_name))
-                exit(1)
+                exception_handler_function(msg=f"Timed out waiting for {instance_name} to reach desired state")
     except Exception as e:
-        print(
-            "Received exception when creating service instance: {}: {}".format(
-                instance_name, e
-            )
-        )
+        exception_handler_function(msg=f"Received exception when creating service instance: {instance_name}: {e}")
 
 
 def check_service_status(
@@ -107,12 +95,7 @@ def check_service_status(
                     os.system("sleep 60")
                     return False
             else:
-                print(
-                    "Expected last operation to be {} but got {}, exiting...".format(
-                        desired_type, service["last_operation"]["type"]
-                    )
-                )
-                exit(1)
+                exception_handler_function(msg=f"Excepted last operation to be {desired_type} but got {service['last_operation']['type']}, exiting...")
 
 
 def service_handler(
@@ -136,8 +119,7 @@ def service_handler(
                 space_guid=space_guid,
             )
         except json.decoder.JSONDecodeError as e:
-            print(f"Could not load service parameters {parameters}: {e}")
-            exit(1)
+            exception_handler_function(msg=f"Could not load service parameters {parameters}: {e}")
     else:
         create_service(
             client=client,
