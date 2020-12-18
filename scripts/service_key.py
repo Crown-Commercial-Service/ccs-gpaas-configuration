@@ -13,7 +13,9 @@ def check_service_instance_exists(client, service_instance, space_guid):
         print(f"Confirmed that service instance for {service_instance} exists")
         return service_guid
     else:
-        exception_handler_function(msg=f"Could not find service instance for {service_instance}, exiting...")
+        exception_handler_function(
+            msg=f"Could not find service instance for {service_instance}, exiting..."
+        )
 
 
 def create_service_key(client, service_guid, service_key_name, parameters):
@@ -25,7 +27,9 @@ def create_service_key(client, service_guid, service_key_name, parameters):
         )
         print(f"Service key {service_key_name} created successfully")
     except Exception as e:
-        exception_handler_function(msg=f"Failed to create service key {service_key_name}: {e}")
+        exception_handler_function(
+            msg=f"Failed to create service key {service_key_name}: {e}"
+        )
 
 
 def service_key_handler(

@@ -36,9 +36,13 @@ def create_service_with_parameters(
             if service_created:
                 break
             if i >= 40:
-                exception_handler_function(msg=f"Timed out waiting for {instance_name} to reach desired state")
+                exception_handler_function(
+                    msg=f"Timed out waiting for {instance_name} to reach desired state"
+                )
     except Exception as e:
-        exception_handler_function(msg=f"Received exception when creating service instance: {instance_name}: {e}")
+        exception_handler_function(
+            msg=f"Received exception when creating service instance: {instance_name}: {e}"
+        )
 
 
 def create_service(client, instance_name, service_plan_guid, space_guid, threshold=20):
@@ -58,9 +62,13 @@ def create_service(client, instance_name, service_plan_guid, space_guid, thresho
             if service_created:
                 break
             if i >= 20:
-                exception_handler_function(msg=f"Timed out waiting for {instance_name} to reach desired state")
+                exception_handler_function(
+                    msg=f"Timed out waiting for {instance_name} to reach desired state"
+                )
     except Exception as e:
-        exception_handler_function(msg=f"Received exception when creating service instance: {instance_name}: {e}")
+        exception_handler_function(
+            msg=f"Received exception when creating service instance: {instance_name}: {e}"
+        )
 
 
 def check_service_status(
@@ -95,7 +103,9 @@ def check_service_status(
                     os.system("sleep 60")
                     return False
             else:
-                exception_handler_function(msg=f"Excepted last operation to be {desired_type} but got {service['last_operation']['type']}, exiting...")
+                exception_handler_function(
+                    msg=f"Excepted last operation to be {desired_type} but got {service['last_operation']['type']}, exiting..."
+                )
 
 
 def service_handler(
@@ -119,7 +129,9 @@ def service_handler(
                 space_guid=space_guid,
             )
         except json.decoder.JSONDecodeError as e:
-            exception_handler_function(msg=f"Could not load service parameters {parameters}: {e}")
+            exception_handler_function(
+                msg=f"Could not load service parameters {parameters}: {e}"
+            )
     else:
         create_service(
             client=client,

@@ -52,7 +52,9 @@ def cf_cli_initialise(
             ]
         )
     except subprocess.CalledProcessError as e:
-        exception_handler_function(msg=f"Failed to login to {organisation} {space}: {e}")
+        exception_handler_function(
+            msg=f"Failed to login to {organisation} {space}: {e}"
+        )
 
 
 def cf_client_initialise():

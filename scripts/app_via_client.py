@@ -45,7 +45,14 @@ def cleanup(home_working_directory, target_directory):
     os.system(f"rm -rf {target_directory}")
 
 
-def app_handler(app, github_repo, home_working_directory, organisation, organisation_space, manifest_path="manifest.yml"):
+def app_handler(
+    app,
+    github_repo,
+    home_working_directory,
+    organisation,
+    organisation_space,
+    manifest_path="manifest.yml",
+):
     client = cf_client_initialise()
     target_directory = "{}/{}".format(home_working_directory, app)
 
